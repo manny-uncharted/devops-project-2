@@ -21,3 +21,34 @@ Results:
 
 
 ### Installing the nginx web server
+Here we have to set up the nginx web server.
+
+- update the linux server with the latest version of the software.
+    ```
+    sudo apt update
+    ```
+
+    Results:
+    ![Update the linux server with the latest version of the software.](./img/sudo-apt-update.png)
+
+    ![Update the linux server with the latest version of the softwa.](./img/sudo-apt-update2.png)
+
+- Getting Nginx installed on our instance
+    ```
+    sudo apt install nginx
+    ```
+
+    Results:
+    ![Getting Nginx installed on our instance.](./img/sudo-apt-install-nginx.png)
+
+    ![Getting Nginx installed on our instance.](./img/sudo-apt-install-nginx2.png)
+    
+    When prompted, enter Y to confirm that you want to install Nginx. Once the installation is finished, the Nginx web server will be active and running on your Ubuntu 20.04 server.
+
+- Verifying that nginx is installed on the instance and is running as a service.
+    ```
+    sudo systemctl status nginx
+    ```
+
+    Results:
+    ![Verifying that nginx is installed on the instance.](./img/sudo-systemctl-status-nginx.png)
