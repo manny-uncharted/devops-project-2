@@ -388,3 +388,78 @@ We will create a database named example_database and a user named example_user, 
 
     Results:
     ![After logging in to the MySQL console, we need to confirm that we have access to the example_database database.](./img/show-databases.png)
+
+- Next, we’ll create a test table named todo_list. From the MySQL console.
+    ```
+    CREATE TABLE example_database.todo_list (
+        item_id INT AUTO_INCREMENT,
+        content VARCHAR(255),
+        PRIMARY KEY(item_id)
+    );
+    ```
+
+    Results:
+    ![Next, we’ll create a test table named todo_list. From the MySQL console.](./img/create-table.png)
+
+- Insert a few rows of content in the test table. You might want to repeat the next command a few times, using different VALUES.
+    ```
+    INSERT INTO example_database.todo_list (content) VALUES ("My first important item");
+    ```
+
+    Results:
+    ![Insert a few rows of content in the test table. You might want to repeat the next command a few times, using different VALUES.](./img/insert-rows.png)
+
+- To confirm that the data was successfully saved to our table, we need to run:
+    ```
+    SELECT * FROM example_database.todo_list;
+    ```
+
+    Results:
+    ![To confirm that the data was successfully saved to your table, we need to run.](./img/select-rows.png)
+
+    then exit mysql using the command
+    ```
+    exit
+    ```
+
+- Now we can create a PHP script that will connect to MySQL and query for your content. Create a new PHP file in your custom web root directory using your preferred editor. We’ll use nano for that.
+    ```
+    nano /var/www/projectLEMP/todo_list.php
+    ```
+    Paste the following code.
+
+    ```
+    <?php
+        $servername = "localhost";
+        $username = "example_user";
+        $password = "PassWord.1";
+        $dbname = "example_database";
+        $table = "todo_list";
+
+        try {
+            $db = new PDO("mysql:host=$servername;dbname=$example_database", $user, $password);
+            echo "<h2>TODO</h2><ol>";
+            foreach($db->query("SELECT content FROM $table") as $row) {
+                echo "<li>" . $row['content'] . "</li>";
+            }
+            echo "</ol>";
+        } catch (PDOException $e) {
+            print "Error!: " . $e->getMessage() . "<br/>";
+            die();
+        }
+    ?>
+    ```
+
+    Results:
+    ![Now we can create a PHP script that will connect to MySQL and query for your content. Create a new PHP file in your custom web root directory using your preferred editor.](./img/nano-todo.png)
+
+    then save and exit the file
+
+- Now we can access the PHP script from the Nginx server.
+    ```
+    http://<Public-IP-Address>:80/todo_list.php
+    ```
+
+    Results:
+    You should see the following output:
+    ![You should see the following output.](./img/todo_list.png)
