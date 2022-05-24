@@ -156,8 +156,7 @@ This allows for a better overall performance in most PHP-based websites, but it 
     ```
 
     Results:
-    ![To install these 2 packages at once.](./img/install-php-fpm-mysql.png)
-
     ![To install these 2 packages at once.](./img/install-php-fpm-mysql2.png)
 
-    When prompted, enter Y to confirm that you want to install PHP. Once the installation is finished, the PHP server will be active and running on your Ubuntu 20.04 server.
+    When prompted, enter Y to confirm that you want to install PHP. Once the installation is finished, the PHP server will be active and running on our AWS EC2 Instance.
+
