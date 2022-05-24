@@ -311,3 +311,80 @@ You can test it to validate that Nginx can correctly hand .php files off to your
 
     Results:
     ![Create a PHP script in the root of your web root directory.](./img/nano-test-php.png)
+
+- You can now access this page in your web browser by visiting the domain name or public IP address you’ve set up in your Nginx configuration file, followed by /info.php
+    ```
+    http://<Public-IP-Address>:80/info.php
+    ```
+
+    Results:
+    ![You can now access this page in your web browser by visiting the domain name or public IP address you’ve set up in your Nginx configuration file, followed by /info.php.](./img/http-public-ip-address-info.png)
+
+    You should see the following output:
+    ![You should see the following output.](./img/phpinfo.png)
+
+- After checking the relevant information about your PHP server through that page, it’s best to remove the file you created as it contains sensitive information about your PHP environment and your Ubuntu server. You can use rm to remove that file.
+    ```
+    sudo rm /var/www/your_domain/info.php
+    ```
+
+    Results:
+    ![After checking the relevant information about your PHP server through that page, it’s best to remove the file you created as it contains sensitive information about your PHP environment and your Ubuntu server. You can use rm to remove that file.](./img/rm-info.php.png)
+
+### Retrieving data from MySQL database with PHP.
+The focus of this this step is to create a test database (DB) with simple "To do list" and configure access to it, so the Nginx website would be able to query data from the DB and display it.
+
+We will create a database named example_database and a user named example_user, but you can replace these names with different values.
+
+- We first need to connect to the MySQL console using the root account.
+    ```
+    sudo mysql
+    ```
+
+    Results:
+    ![We first need to connect to the MySQL console using the root account.](./img/mysql-root.png)
+
+- Now we have to create a new database, run the following command from your MySQL console.
+    ```
+    CREATE DATABASE example_database;
+    ```
+
+    Results:
+    ![Now we have to create a new database, run the following command from your MySQL console.](./img/create-database.png)
+
+- Now we are creating a new user and granting him full privileges on the database that was just created.
+    ```
+    CREATE USER 'example_user'@'%' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';
+    ```
+
+    Results:
+    ![Now we are creating a new user and granting him full privileges on the database that was just created.](./img/create-user.png)
+
+- Now we need to give this user permission over the example_database database.
+    ```
+    GRANT ALL PRIVILEGES ON example_database.* TO 'example_user'@'%';
+    ```
+
+    Results:
+    ![Now we need to give this user permission over the example_database database.](./img/grant-all-privileges.png)
+
+    and then exit mysql using the command
+    ```
+    exit
+    ```
+
+- You can test if the new user has the proper permissions by logging in to the MySQL console again, this time using the custom user credentials.
+    ```
+    mysql -u example_user -p
+    ```
+
+    Results:
+    ![You can test if the new user has the proper permissions by logging in to the MySQL console again, this time using the custom user credentials.](./img/mysql-example_user.png)
+
+- After logging in to the MySQL console, we need to confirm that we have access to the example_database database.
+    ```
+    SHOW DATABASES;
+    ```
+
+    Results:
+    ![After logging in to the MySQL console, we need to confirm that we have access to the example_database database.](./img/show-databases.png)
